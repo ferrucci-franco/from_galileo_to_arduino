@@ -21,8 +21,8 @@ For an overview and demonstration of the project, you can watch the following vi
 Here are some photos and screenshots of the project in action:
 
 ### Photos
-![Real-Time Plot](media/ver00/photos/ver_00/IMG_0462.JPEG)
-![Real-Time Plot](media/ver00/photos/ver_00/IMG_0445.JPEG)
+![Real-Time Plot](media/ver00/photos/IMG_0462.JPEG)
+![Real-Time Plot](media/ver00/photos/IMG_0445.JPEG)
 
 ### Real-Time Plot
 ![Real-Time Plot](media/ver00/screenshots/screenshot_02.png)
