@@ -13,6 +13,10 @@ the CSV file.
 The plot shows the simulation and measurement data, allowing for visual 
 comparison of the theoretical model with real-world measurements.
 
+For information about the equation of motion of a "simple" pendulum vs 
+a "physical" pendulim, see:
+https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_I_-_Classical_Mechanics_(Gea-Banacloche)/11%3A_Simple_Harmonic_Motion/11.03%3A_Pendulums
+
 """
 
 import pandas as pd
