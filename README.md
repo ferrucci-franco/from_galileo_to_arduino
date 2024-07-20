@@ -7,7 +7,11 @@ This project involves measuring the angle of a simple pendulum and plotting the 
 
 In this repository you will find the following elements:
 - Arduino code
-- Python code for the user interface, off-line data visualization and curve-fitting tool.
+- Python code for:
+  - The real-time graphical user interface (GUI)
+  - An off-line data visualization tool of CSV measured data (using Plotly library).
+  - A script with a curve-fitting tool for a sinusoidal curve with exponential decay.
+  - A script with the numerical integration of the equation of motion and comparison with measurement (with an example!).
 - CAD files and 3D printer files (I used Creality K1 printer). In a future commit I will upload the Fusion360 files.
 - Pictures and screenshots.
 
