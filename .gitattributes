@@ -1,0 +1,2 @@
+# Ignore all files in gcode_files directory for language statistics
+CAD/** linguist-vendored=true
