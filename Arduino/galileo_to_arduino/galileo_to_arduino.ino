@@ -1,3 +1,47 @@
+/*
+  From Galileo Galilei to Arduino.
+  https://github.com/ferrucci-franco/from_galileo_to_arduino
+  Author: Franco FERRUCCI
+  
+  Encoder Position and Angle Measurement
+
+  This program measures the position and angle of a rotary encoder and displays the angle on a MAX7219 7-segment display. 
+  It also provides options for serial communication and debugging using an LED.
+
+  Libraries Used:
+  - TimerOne: For setting up and handling Timer1 interrupt service routine.
+  - digitalWriteFast: For faster reading and writing of digital pins.
+  - max7219: For controlling the MAX7219 display.
+
+  Debug Levels (_LOG_LEVEL_):
+  0: No debug.
+  1: Send raw 'encoderPosition' via serial port.
+  2: Toggle a debug pin when timer enters ISR.
+
+  Definitions:
+  - BAUD_RATE: Serial communication baud rate.
+  - TIMER1_MICROSECONDS: Timer1 interval in microseconds.
+  - MAX7219 display control pins and brightness settings.
+
+  Encoder Setup:
+  - Pins for encoder channels A and B, and a button for resetting the encoder position.
+  - Encoder constants for counts per revolution (CPR) and angle calculation.
+
+  Timer Setup:
+  - Timer1 for periodic interrupts to handle data sending and angle calculations.
+
+  Functions:
+  - setup(): Initializes serial communication, pin modes, interrupts, Timer1, and the MAX7219 display.
+  - loop(): Main loop to check button state and send data to the serial port and display.
+  - updateEncoder(): Interrupt service routine to update encoder position based on pin changes.
+  - sendData(): Timer1 interrupt service routine to increment time counter, calculate angle, and set flag for data transmission.
+  - displayAngle(float angle): Converts the angle to a string and displays it on the MAX7219.
+
+  Usage:
+  - Connect the encoder to the specified pins and initialize the system by uploading the code.
+  - The angle will be displayed on the MAX7219 display, and data can be sent to the serial port based on the debug level.
+*/
+
 #include <TimerOne.h>           // Timer1 library (interrupt service routine).
 #include <digitalWriteFast.h>   // Library that reads and write pins faster.
 #include <max7219.h>            // Library to control MAX7219 display.
@@ -18,25 +62,25 @@
 #define RIGHT 1
 #define MAX7219_NUMBER_OF_DECIMALS 0
 
-// MAX7219 library, redefine REG_INTENSITY, from 0x01 (lower) to 0x0A (higher):
+// MAX7219 library, redefine REG_INTENSITY. Note: 0x01 = low intensity, 0x0A = high intensity:
 #ifdef REG_INTENSITY
 #undef REG_INTENSITY
 #define REG_INTENSITY     0x08                       
 #endif
 
-// MAX7219 library, redefine MAX_CLK pin:
+// MAX7219 library, redefine MAX_CLK pin (in case we want to change pin number):
 #ifdef MAX_CLK
 #undef MAX_CLK
 #define MAX_CLK 10                       
 #endif
 
-// MAX7219 library, redefine MAX_CS pin:
+// MAX7219 library, redefine MAX_CS pin (in case we want to change pin number):
 #ifdef MAX_CS
 #undef MAX_CS
 #define MAX_CS 11                       
 #endif
 
-// MAX7219 library, redefine MAX_DIN pin:
+// MAX7219 library, redefine MAX_DIN pin (in case we want to change pin number):
 #ifdef MAX_DIN
 #undef MAX_DIN
 #define MAX_DIN 12                       
@@ -100,8 +144,8 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(encoderPinB), updateEncoder, CHANGE);
 
   // Initialize Timer1 for periodic interrupt
-  Timer1.initialize(TIMER1_MICROSECONDS); // Set timer to 100ms (100,000 microseconds)
-  Timer1.attachInterrupt(sendData); // Attach the function to the timer interrupt
+  Timer1.initialize(TIMER1_MICROSECONDS);   // Set timer to TIMER1_MICROSECONDS micro-seconds
+  Timer1.attachInterrupt(sendData);         // Attach the function to the timer interrupt
 
   // Initialize display
   max7219.Begin();
@@ -176,7 +220,7 @@ void sendData() {
 }
 
 void displayAngle(float angle) {
-  // Convert float to string with 0 decimal places:
+  // Convert float to string with 'MAX7219_NUMBER_OF_DECIMALS' decimal places:
   char buffer[9];
   dtostrf(angle, 8, MAX7219_NUMBER_OF_DECIMALS, buffer);
 
