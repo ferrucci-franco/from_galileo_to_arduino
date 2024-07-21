@@ -38,28 +38,28 @@ Here are some photos and screenshots of the project in action:
 
 ### Photos
 <p align="center">
-<img src="media/ver00/photos/IMG_0450.JPEG" alt="Photo 1" width="400">
+<img src="media/ver00/photos/IMG_0450.JPEG" alt="Photo 1" width="600">
 </p>
 <p align="center">
-<img src="media/ver00/photos/IMG_0445.JPEG" alt="Photo 2" width="400">
+<img src="media/ver00/photos/IMG_0445.JPEG" alt="Photo 2" width="600">
 </p>
 <p align="center">
-<img src="media/ver00/photos/IMG_0443.JPEG" alt="Photo 2" width="400">
+<img src="media/ver00/photos/IMG_0443.JPEG" alt="Photo 2" width="600">
 </p>
 
 ### Real-Time Plot
 <p align="center">
-<img src="media/ver00/screenshots/screenshot_02.png" alt="Real-Time Plot" width="400">
+<img src="media/ver00/screenshots/screenshot_02.png" alt="Real-Time Plot" width="600">
 </p>
 
 ### Exported CSV file visualisation
 <p align="center">
-<img src="media/ver00/screenshots/screenshot_03.png" alt="Data Acquisition" width="400">
+<img src="media/ver00/screenshots/screenshot_03.png" alt="Data Acquisition" width="600">
 </p>
 
 ### Curve fitting
 <p align="center">
-<img src="media/ver00/screenshots/screenshot_05.png" alt="Example Data Plot" width="400">
+<img src="media/ver00/screenshots/screenshot_05.png" alt="Example Data Plot" width="600">
 </p>
 
 ## Requirements
