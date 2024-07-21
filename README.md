@@ -1,7 +1,13 @@
 # From Galileo Galilei to Arduino
 Teaching material of a simple pendulum with angle measurement and real-time plot.
+
+This project involves measuring the angle of a simple pendulum and plotting the data in real-time using Arduino and Python. The system captures the pendulum's angle data via a serial interface and displays it graphically. The code provided includes functionality for data acquisition, real-time plotting, and saving data to disk.
+<p align="center">
+  <img src="media/ver00/photos/IMG_0462.JPEG" alt="Intoductory photo" width="500">
+</p>
+ 
 ## Table of Contents
-- [Description](#description)
+- [Repository recap](#repository-recap)
 - [Videos](#videos)
 - [Photos & Screenshots](#photos--screenshots)
   - [Photos](#photos)
@@ -13,9 +19,7 @@ Teaching material of a simple pendulum with angle measurement and real-time plot
 - [Contribution](#contribution)
 - [Contact](#contact)
 
-## Description
-This project involves measuring the angle of a simple pendulum and plotting the data in real-time using Arduino and Python. The system captures the pendulum's angle data via a serial interface and displays it graphically. The code provided includes functionality for data acquisition, real-time plotting, and saving data to disk.
-
+## Repository recap
 In this repository you will find the following elements:
 - Arduino code
 - Python code for:
@@ -27,25 +31,36 @@ In this repository you will find the following elements:
 - Pictures and screenshots.
 ## Videos
 For an overview and demonstration of the project, you can watch the following videos:
-
 - [Video 1 (YouTube)](https://youtu.be/FJ6ZPmrugeg?si=X3V44YTVULSpro3k)
 - [Video 2 (YouTube)](https://youtube.com/shorts/YBjDby0IXsI?si=bWYj2W4k94o8iF31)
-
 ## Photos & Screenshots
 Here are some photos and screenshots of the project in action:
 
 ### Photos
-![Real-Time Plot](media/ver00/photos/IMG_0462.JPEG)
-![Real-Time Plot](media/ver00/photos/IMG_0445.JPEG)
+<p align="center">
+<img src="media/ver00/photos/IMG_0450.JPEG" alt="Photo 1" width="400">
+</p>
+<p align="center">
+<img src="media/ver00/photos/IMG_0445.JPEG" alt="Photo 2" width="400">
+</p>
+<p align="center">
+<img src="media/ver00/photos/IMG_0443.JPEG" alt="Photo 2" width="400">
+</p>
 
 ### Real-Time Plot
-![Real-Time Plot](media/ver00/screenshots/screenshot_02.png)
+<p align="center">
+<img src="media/ver00/screenshots/screenshot_02.png" alt="Real-Time Plot" width="400">
+</p>
 
 ### Exported CSV file visualisation
-![Data Acquisition](media/ver00/screenshots/screenshot_03.png)
+<p align="center">
+<img src="media/ver00/screenshots/screenshot_03.png" alt="Data Acquisition" width="400">
+</p>
 
-### Curve fitting 
-![Example Data Plot](media/ver00/screenshots/screenshot_05.png)
+### Curve fitting
+<p align="center">
+<img src="media/ver00/screenshots/screenshot_05.png" alt="Example Data Plot" width="400">
+</p>
 
 ## Requirements
 - Arduino or compatible microcontroller
