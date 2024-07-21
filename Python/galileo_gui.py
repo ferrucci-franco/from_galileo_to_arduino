@@ -4,7 +4,7 @@ Created on Thu Jul 11 08:01:57 2024
 
 @author: Franco FERRUCCI
 """
-
+#%% Imports
 import sys
 import re
 import os
@@ -15,11 +15,12 @@ import serial
 import serial.tools.list_ports
 import datetime
 
+#%%
 # Global flag to reset the time axis when "Clear plot" button is pressed
 # (variable shared between SerialReader and MainWindow classes):
 this_is_the_first_read = True
 
-
+#%% Serial port thread class
 class SerialReader(QThread):
     data_received = pyqtSignal(float, float)  # Signal to send time and angle data
 
@@ -73,7 +74,7 @@ class SerialReader(QThread):
                         time_ms = int(match.group(1)) - self.startup_time
 
                     if time_ms == self.previous_time:
-                        continue
+                        continue # Skip line if it already parsed (not sure if it necessary)
                     
                     angle = float(match.group(2))
                     self.previous_time = time_ms
@@ -91,6 +92,7 @@ class SerialReader(QThread):
         self.running = False
         self.wait()
 
+#%% GUI class
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -126,8 +128,8 @@ class MainWindow(QMainWindow):
         self.show_raw_data_checkbox = QCheckBox("Show received raw data in the console")
         
         self.h_layout = QHBoxLayout()
-        self.h_layout.addWidget(self.combobox)
         self.h_layout.addWidget(self.refresh_button)  # Add the refresh button to the layout
+        self.h_layout.addWidget(self.combobox)
         self.h_layout.addWidget(self.connect_button)
         self.h_layout.addWidget(self.disconnect_button)
         self.h_layout.addWidget(self.show_raw_data_checkbox)
@@ -264,6 +266,7 @@ class MainWindow(QMainWindow):
         self.stop_and_quit()
         event.accept()
 
+#%% Run the app
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
