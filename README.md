@@ -26,7 +26,7 @@ In this repository you will find the following elements:
   - The real-time graphical user interface (GUI)
   - An off-line data visualization tool of CSV measured data (using Plotly library).
   - A script with a curve-fitting tool for a sinusoidal curve with exponential decay.
-  - A script with the numerical integration of the equation of motion and comparison with measurement (with an example!).
+  - A script with the numerical integration of the equations of motion of a physical pendulum and comparison with measurement (with an example!).
 - CAD files and 3D printer files (I used Creality K1 printer). In a future commit I will upload the Fusion360 files.
 - Pictures and screenshots.
 ## Videos
@@ -41,7 +41,7 @@ Here are some photos and screenshots of the project in action:
 <img src="media/ver00/photos/IMG_0450.JPEG" alt="Photo 1" width="600">
 </p>
 <p align="center">
-<img src="media/ver00/photos/IMG_0445.JPEG" alt="Photo 2" width="600">
+<img src="media/ver00/photos/IMG_0419.JPEG" alt="Photo 2" width="600">
 </p>
 <p align="center">
 <img src="media/ver00/photos/IMG_0443.JPEG" alt="Photo 2" width="600">
@@ -70,7 +70,7 @@ Here are some photos and screenshots of the project in action:
 ## Python Code Installation
 To set up the necessary environment for running the provided Python code, follow the instructions below. This guide will walk you through creating an Anaconda environment called `galileo_to_arduino` and installing all the required libraries.
 ### Step 1: Install Anaconda
-If you do not have Anaconda installed, you can download and install it from [the official Anaconda website](https://www.anaconda.com/products/distribution).
+If you do not have Anaconda installed, you can download and install it from [the official Anaconda website](https://www.anaconda.com/products/distribution). If you don't have that much room in you hard drive, try Miniconda instead [(see link here)](https://docs.anaconda.com/miniconda/)
 ### Step 2: Create a New Environment
 Open the Anaconda prompt and execute the following commands to create a new environment called `galileo_to_arduino`:
 ```
