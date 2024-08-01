@@ -1,11 +1,20 @@
 # From Galileo Galilei to Arduino
-Teaching material of a simple pendulum with angle measurement and real-time plot.
+This page presents a low-budget (under USD 100) didactic tool for a simple pendulum with angle measurement and real-time plotting. 
 
-This project involves measuring the angle of a simple pendulum and plotting the data in real-time using Arduino and Python. The system captures the pendulum's angle data via a serial interface and displays it graphically. The code provided includes functionality for data acquisition, real-time plotting, and saving data to disk.
+The project involves measuring the angle of a pendulum and plotting the data in real-time using a incremental encoder, an Arduino UNO board and a computer running a graphical user interface, programmed in Python.
+
+This tool, designed by [Franco FERRUCCI](mailto:franco.ferrucci@upf.pf) is part of the 'Introduction to Practical Work' sessions in the first year of the 'Engineering Science' bachelor's program at the University of French Polynesia.
+
+You will find here all the necessary information to replicate this piece of equipment, such as the bill of material, the 3D models (for 3D printing), the code running in the Arduino board and the Python program that runs on the computer.
+
+
 <p align="center">
   <img src="media/ver00/photos/IMG_0462.JPEG" alt="Intoductory photo" width="500">
 </p>
- 
+
+### How does it work?
+The Arduino board reads signals from the incremental encoder, computes the pendulum angle, and displays it on a physical display. Simultaneously, it sends the data via a serial interface to a computer. A tool on the computer runs Python code that plots the pendulum angle in real time and allows the user to save the data to disk as a CSV file.
+
 ## Table of Contents
 - [Repository recap](#repository-recap)
 - [Videos](#videos)
@@ -29,6 +38,8 @@ In this repository you will find the following elements:
   - A script with the numerical integration of the equations of motion of a physical pendulum and comparison with measurement (with an example!).
 - CAD files and 3D printer files (I used Creality K1 printer). In a future commit I will upload the Fusion360 files.
 - Pictures and screenshots.
+- Bill of material (comming soon).
+- Electrical diagram (comming soon).
 ## Videos
 For an overview and demonstration of the project, you can watch the following videos:
 - [Video 1 (YouTube)](https://youtu.be/FJ6ZPmrugeg?si=X3V44YTVULSpro3k)
