@@ -4,16 +4,20 @@ Created on Thu Jul 11 08:01:57 2024
 
 @author: Franco FERRUCCI
 """
+#%% Version
+__version__ = '1.1.0'
+
 #%% Imports
 import sys
 import re
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QComboBox, QCheckBox, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QComboBox, QCheckBox, QLabel, QRadioButton, QButtonGroup, QGroupBox
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal
 import pyqtgraph as pg
 import serial
 import serial.tools.list_ports
 import datetime
+from scipy.io import savemat
 
 #%%
 # Global flag to reset the time axis when "Clear plot" button is pressed
@@ -135,25 +139,54 @@ class MainWindow(QMainWindow):
         self.h_layout.addWidget(self.show_raw_data_checkbox)
         self.layout.addLayout(self.h_layout)  # Add the horizontal layout to the main vertical layout
 
+        # Create a new horizontal layout for the first row of buttons
+        self.first_row_layout = QHBoxLayout()
+        
+        # Add the Clear Plot button
         self.reset_button = QPushButton("Clear plot")
         self.reset_button.clicked.connect(self.reset_time)
-        self.layout.addWidget(self.reset_button)
-
-        self.save_data_button = QPushButton("Save current view to disk")
-        self.save_data_button.clicked.connect(self.save_data)
-
-        self.button_layout = QHBoxLayout()  # Create a new horizontal layout for buttons
-        self.button_layout.addWidget(self.reset_button)
-        self.button_layout.addWidget(self.save_data_button)
-        self.layout.addLayout(self.button_layout)  # Add the button layout to the main layout
-
+        self.first_row_layout.addWidget(self.reset_button)
+        
+        # Add the Auto Scale XY button
         self.auto_scale_button = QPushButton("Auto Scale XY")
         self.auto_scale_button.clicked.connect(self.auto_scale_xy)
-        self.layout.addWidget(self.auto_scale_button)
+        self.first_row_layout.addWidget(self.auto_scale_button)
 
+        # Add the Stop and Quit button to the right of Auto Scale XY button
         self.stop_button = QPushButton("Stop and Quit")
         self.stop_button.clicked.connect(self.stop_and_quit)
-        self.layout.addWidget(self.stop_button)
+        self.first_row_layout.addWidget(self.stop_button)
+
+        # Add the first row layout to the main layout
+        self.layout.addLayout(self.first_row_layout)
+
+        # Create a QGroupBox to enclose the third row
+        self.third_row_groupbox = QGroupBox("Output Settings")
+        self.third_row_layout = QHBoxLayout(self.third_row_groupbox)
+        
+        # Add the Save Data button
+        self.save_data_button = QPushButton("Save current view to disk")
+        self.save_data_button.clicked.connect(self.save_data)
+        self.third_row_layout.addWidget(self.save_data_button)
+
+        # Add the Output format label
+        self.output_format_label = QLabel("Output file(s) format:")
+        self.third_row_layout.addWidget(self.output_format_label)
+
+        # Add radio buttons for file export options
+        self.export_option_group = QButtonGroup()
+        self.csv_only_radio = QRadioButton("CSV only")
+        self.csv_and_mat_radio = QRadioButton("CSV and Matlab MAT file")
+        self.export_option_group.addButton(self.csv_only_radio, 1)
+        self.export_option_group.addButton(self.csv_and_mat_radio, 2)
+        self.csv_only_radio.setChecked(True)  # Default to 'CSV only'
+
+        # Add the radio buttons to the layout
+        self.third_row_layout.addWidget(self.csv_only_radio)
+        self.third_row_layout.addWidget(self.csv_and_mat_radio)
+
+        # Add the third row groupbox to the main layout
+        self.layout.addWidget(self.third_row_groupbox)
 
         self.plot_item = self.plot_widget.getPlotItem()
         self.configure_plot_item()
@@ -167,9 +200,10 @@ class MainWindow(QMainWindow):
         # Add the label at the bottom
         self.footer_label = QLabel()
         self.footer_label.setText(
-            'Created by Franco FERRUCCI | <a href="https://github.com/ferrucci-franco/from_galileo_to_arduino">https://github.com/ferrucci-franco/from_galileo_to_arduino</a>')
+            f'Created by Franco FERRUCCI | Version {__version__} | <a href="https://github.com/ferrucci-franco/from_galileo_to_arduino">https://github.com/ferrucci-franco/from_galileo_to_arduino</a>')
         self.footer_label.setOpenExternalLinks(True)
         self.layout.addWidget(self.footer_label)
+
 
     def get_serial_ports(self):
         ports = serial.tools.list_ports.comports()
@@ -254,13 +288,19 @@ class MainWindow(QMainWindow):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         if not os.path.exists('./csv_data'):
             os.makedirs('./csv_data')
-        filename = f"./csv_data/galileo_{timestamp}.csv"
-        with open(filename, 'w') as file:
+        
+        csv_filename = f"./csv_data/galileo_{timestamp}.csv"
+        with open(csv_filename, 'w') as file:
             file.write("Time,Angle\n")
             for time, angle in zip(self.data["Time"], self.data["Angle"]):
                 file.write(f"{time},{angle}\n")
-        print(f"Data saved to {filename}")
-    
+        print(f"Data saved to {csv_filename}")
+
+        if self.export_option_group.checkedId() == 2:  # 'CSV and MAT file' is selected
+            mat_filename = csv_filename.rsplit('.', 1)[0] + '.mat'
+            savemat(mat_filename, {'data': {'Time': self.data["Time"], 'Angle': self.data["Angle"]}})
+            print(f"Data saved to MAT file at {mat_filename}")
+
     def closeEvent(self, event):
         # Override close event to call stop_and_quit when window is closed
         self.stop_and_quit()
@@ -269,6 +309,7 @@ class MainWindow(QMainWindow):
 #%% Run the app
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+
     window = MainWindow()
     window.setGeometry(100, 100, 800, 600)
     window.show()
